@@ -29,7 +29,7 @@ func NewCOS(config *Config) *Adapter {
 }
 
 func (a *Adapter) Client() (*cos.Client, error) {
-	bucketURL, err := url.Parse(a.Config.GetBucket(a.bucket))
+	bucketURL, err := url.Parse(a.Config.UseBucket(a.bucket))
 	if err != nil {
 		return nil, err
 	}

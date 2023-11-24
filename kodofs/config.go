@@ -22,7 +22,7 @@ func (c *Config) New() gfs.IAdapter {
 func (c *Config) URL(path string) (*url.URL, error) {
 	return gfs.PublicURLMake(c.CDN, path)
 }
-func (c *Config) GetBucket(bucket string) string {
+func (c *Config) UseBucket(bucket string) string {
 	if bucket != "" {
 		return bucket
 	}

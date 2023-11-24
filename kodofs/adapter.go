@@ -42,7 +42,7 @@ func (a *Adapter) UploadToken() string {
 	if a.Config.Policy == nil {
 		a.Config.Policy = &storage.PutPolicy{}
 	}
-	a.Config.Policy.Scope = a.Config.GetBucket(a.bucket)
+	a.Config.Policy.Scope = a.Config.UseBucket(a.bucket)
 	return a.Config.Policy.UploadToken(a.Mac())
 }
 func (a *Adapter) StorageConfig() *storage.Config {
@@ -72,13 +72,13 @@ func (a *Adapter) BucketManagerBatch(operations []string) error {
 }
 
 func (a *Adapter) Stat(path string) (info storage.FileInfo, err error) {
-	return a.BucketManager().Stat(a.Config.GetBucket(a.bucket), path)
+	return a.BucketManager().Stat(a.Config.UseBucket(a.bucket), path)
 }
 func (a *Adapter) URL(path string) (*url.URL, error) {
 	return a.Config.URL(path)
 }
 func (a *Adapter) Exist(path string) (bool, error) {
-	stat, err := a.BucketManager().Stat(a.Config.GetBucket(a.bucket), path)
+	stat, err := a.BucketManager().Stat(a.Config.UseBucket(a.bucket), path)
 	if stat.Md5 != "" && err == nil {
 		return true, nil
 	}
@@ -109,7 +109,7 @@ func (a *Adapter) Write(path string, contents []byte) error {
 func (a *Adapter) WriteStream(path, resource string) error {
 	var err error
 	if strings.HasPrefix(resource, "http") {
-		_, err = a.BucketManager().Fetch(resource, a.Config.GetBucket(a.bucket), path)
+		_, err = a.BucketManager().Fetch(resource, a.Config.UseBucket(a.bucket), path)
 	} else {
 		formUploader := storage.NewFormUploader(a.StorageConfig())
 		err = formUploader.PutFile(context.Background(),
@@ -132,7 +132,7 @@ func (a *Adapter) Read(path string) ([]byte, error) {
 }
 
 func (a *Adapter) Delete(path string) (int64, error) {
-	err := a.BucketManagerBatch([]string{storage.URIDelete(a.Config.GetBucket(a.bucket), path)})
+	err := a.BucketManagerBatch([]string{storage.URIDelete(a.Config.UseBucket(a.bucket), path)})
 	if err != nil {
 		return 0, err
 	}
@@ -164,7 +164,7 @@ func (a *Adapter) MimeType(path string) (string, error) {
 }
 
 func (a *Adapter) Move(source, destination string) (bool, error) {
-	err := a.BucketManagerBatch([]string{storage.URIMove(a.Config.GetBucket(a.bucket), source, a.Config.GetBucket(a.bucket), destination, true)})
+	err := a.BucketManagerBatch([]string{storage.URIMove(a.Config.UseBucket(a.bucket), source, a.Config.UseBucket(a.bucket), destination, true)})
 	if err != nil {
 		return false, err
 	}
@@ -172,7 +172,7 @@ func (a *Adapter) Move(source, destination string) (bool, error) {
 }
 
 func (a *Adapter) Copy(source, destination string) (bool, error) {
-	err := a.BucketManagerBatch([]string{storage.URICopy(a.Config.GetBucket(a.bucket), source, a.Config.GetBucket(a.bucket), destination, true)})
+	err := a.BucketManagerBatch([]string{storage.URICopy(a.Config.UseBucket(a.bucket), source, a.Config.UseBucket(a.bucket), destination, true)})
 	if err != nil {
 		return false, err
 	}

@@ -10,15 +10,8 @@ import (
 	"sync"
 )
 
-const (
-	BJEndpoint  = "https://bj.bcebos.com"
-	BDEndpoint  = "https://bd.bcebos.com"
-	SUEndpoint  = "https://su.bcebos.com"
-	GZEndpoint  = "https://gz.bcebos.com"
-	CDEndpoint  = "https://cd.bcebos.com"
-	HKGEndpoint = "https://hkg.bcebos.com"
-	FWHEndpoint = "https://fwh.bcebos.com"
-	FSHEndpoint = "https://fsh.bcebos.com"
+var (
+	DefaultEndpoint = "https://bj.bcebos.com"
 )
 
 type Adapter struct {
@@ -34,7 +27,7 @@ func New(config gfs.IAdapterConfig) gfs.IAdapter {
 func NewBOS(config *Config) *Adapter {
 	a := &Adapter{Config: config}
 	if a.Config.Endpoint == "" {
-		a.Config.Endpoint = BJEndpoint
+		a.Config.Endpoint = DefaultEndpoint
 	}
 	a.lock = &sync.Mutex{}
 	return a
@@ -54,7 +47,7 @@ func (a *Adapter) ObjectMeta(path string) (*api.GetObjectMetaResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	return client.GetObjectMeta(a.Config.GetBucket(a.bucket), path)
+	return client.GetObjectMeta(a.Config.UseBucket(a.bucket), path)
 }
 func (a *Adapter) Bucket(bucket string) gfs.IAdapter {
 	a.bucket = bucket
@@ -86,7 +79,7 @@ func (a *Adapter) Write(path string, contents []byte) error {
 	if err != nil {
 		return err
 	}
-	_, err = client.PutObjectFromBytes(a.Config.GetBucket(a.bucket), path, contents, nil)
+	_, err = client.PutObjectFromBytes(a.Config.UseBucket(a.bucket), path, contents, nil)
 	return err
 }
 
@@ -95,7 +88,7 @@ func (a *Adapter) WriteStream(path, resource string) error {
 	if err != nil {
 		return err
 	}
-	_, err = client.PutObjectFromFile(a.Config.GetBucket(a.bucket), path, resource, nil)
+	_, err = client.PutObjectFromFile(a.Config.UseBucket(a.bucket), path, resource, nil)
 	return err
 }
 
@@ -117,7 +110,7 @@ func (a *Adapter) Delete(path string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	if err = client.DeleteObject(a.Config.GetBucket(a.bucket), path); err == nil {
+	if err = client.DeleteObject(a.Config.UseBucket(a.bucket), path); err == nil {
 		return 1, nil
 	}
 	return 0, err
@@ -160,10 +153,10 @@ func (a *Adapter) CopyObject(source, destination string, deleteSource bool) (boo
 	if err != nil {
 		return false, err
 	}
-	if _, err = client.BasicCopyObject(a.Config.GetBucket(a.bucket), destination, a.Config.GetBucket(a.bucket), source); err == nil {
+	if _, err = client.BasicCopyObject(a.Config.UseBucket(a.bucket), destination, a.Config.UseBucket(a.bucket), source); err == nil {
 		if deleteSource {
 			defer func() {
-				_ = client.DeleteObject(a.Config.GetBucket(a.bucket), source)
+				_ = client.DeleteObject(a.Config.UseBucket(a.bucket), source)
 			}()
 		}
 		return true, nil

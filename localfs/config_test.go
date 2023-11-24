@@ -27,7 +27,7 @@ func TestConfig_GetBucket(t *testing.T) {
 			c := &Config{
 				CDN: tt.fields.CDN,
 			}
-			if got := c.GetBucket(tt.args.bucket); got != tt.want {
+			if got := c.UseBucket(tt.args.bucket); got != tt.want {
 				t.Errorf("GetBucket() = %v, want %v", got, tt.want)
 			}
 		})

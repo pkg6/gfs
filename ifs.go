@@ -83,7 +83,7 @@ type IAdapter interface {
 type IAdapterConfig interface {
 	New() IAdapter
 	URL(path string) (*url.URL, error)
-	GetBucket(bucket string) string
+	UseBucket(bucket string) string
 }
 
 type IConfig interface {

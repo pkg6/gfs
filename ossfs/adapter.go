@@ -11,6 +11,10 @@ import (
 	"sync"
 )
 
+var (
+	DefaultEndpoint = "oss-cn-hangzhou.aliyuncs.com"
+)
+
 type Adapter struct {
 	Config *Config
 	bucket string
@@ -24,7 +28,7 @@ func New(config gfs.IAdapterConfig) gfs.IAdapter {
 func NewOSS(config *Config) *Adapter {
 	a := &Adapter{Config: config}
 	if a.Config.Endpoint == "" {
-		a.Config.Endpoint = Endpoint(RegionCnHangzhou)
+		a.Config.Endpoint = DefaultEndpoint
 	}
 	a.lock = &sync.Mutex{}
 	return a
@@ -47,7 +51,7 @@ func (a *Adapter) OSSBucket() (*oss.Bucket, error) {
 	if err != nil {
 		return nil, err
 	}
-	return client.Bucket(a.Config.GetBucket(a.bucket))
+	return client.Bucket(a.Config.UseBucket(a.bucket))
 }
 
 func (a *Adapter) CopyObject(srcObjectKey, destObjectKey string, isDelete bool) (bool, error) {
