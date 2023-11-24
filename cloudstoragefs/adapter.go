@@ -73,7 +73,7 @@ func (a *Adapter) StorageObject(object string) (*storage.ObjectHandle, error) {
 	if err != nil {
 		return nil, err
 	}
-	obj := client.Bucket(a.Config.GetBucket(a.bucket)).Object(object).If(
+	obj := client.Bucket(a.Config.UseBucket(a.bucket)).Object(object).If(
 		storage.Conditions{DoesNotExist: true},
 	)
 	return obj, nil

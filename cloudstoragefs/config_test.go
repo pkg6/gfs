@@ -46,41 +46,6 @@ func TestConfig_BucketUrl(t *testing.T) {
 	}
 }
 
-func TestConfig_GetBucket(t *testing.T) {
-	type fields struct {
-		CDN             string
-		Bucket          string
-		WithTimeout     time.Duration
-		CredentialsFile string
-		Option          []option.ClientOption
-	}
-	type args struct {
-		bucket string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			c := &Config{
-				CDN:             tt.fields.CDN,
-				Bucket:          tt.fields.Bucket,
-				WithTimeout:     tt.fields.WithTimeout,
-				CredentialsFile: tt.fields.CredentialsFile,
-				Option:          tt.fields.Option,
-			}
-			if got := c.GetBucket(tt.args.bucket); got != tt.want {
-				t.Errorf("GetBucket() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestConfig_New(t *testing.T) {
 	type fields struct {
 		CDN             string
@@ -148,6 +113,41 @@ func TestConfig_URL(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("URL() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConfig_UseBucket(t *testing.T) {
+	type fields struct {
+		CDN             string
+		Bucket          string
+		WithTimeout     time.Duration
+		CredentialsFile string
+		Option          []option.ClientOption
+	}
+	type args struct {
+		bucket string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+		want   string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Config{
+				CDN:             tt.fields.CDN,
+				Bucket:          tt.fields.Bucket,
+				WithTimeout:     tt.fields.WithTimeout,
+				CredentialsFile: tt.fields.CredentialsFile,
+				Option:          tt.fields.Option,
+			}
+			if got := c.UseBucket(tt.args.bucket); got != tt.want {
+				t.Errorf("UseBucket() = %v, want %v", got, tt.want)
 			}
 		})
 	}

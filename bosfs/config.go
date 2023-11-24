@@ -6,9 +6,10 @@ import (
 )
 
 type Config struct {
-	CDN              string
-	Ak               string
-	Sk               string
+	CDN string
+	Ak  string
+	Sk  string
+	//https://cloud.baidu.com/doc/BOS/s/Ojwvyrpgd
 	Endpoint         string
 	RedirectDisabled bool
 	Bucket           string
@@ -26,7 +27,7 @@ func (c *Config) URL(path string) (*url.URL, error) {
 	return gfs.PublicURLMake(bucketUrl.String(), path)
 }
 
-func (c *Config) GetBucket(bucket string) string {
+func (c *Config) UseBucket(bucket string) string {
 	if bucket != "" {
 		return bucket
 	}

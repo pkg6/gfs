@@ -32,7 +32,8 @@ func (c *Config) BucketUrl() (*url.URL, error) {
 	}
 	return url.Parse(c.CDN)
 }
-func (c *Config) GetBucket(bucket string) string {
+
+func (c *Config) UseBucket(bucket string) string {
 	if bucket != "" {
 		return bucket
 	}

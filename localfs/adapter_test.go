@@ -11,7 +11,6 @@ import (
 
 func TestAdapter_Bucket(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -29,7 +28,6 @@ func TestAdapter_Bucket(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -42,7 +40,6 @@ func TestAdapter_Bucket(t *testing.T) {
 
 func TestAdapter_Copy(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -62,7 +59,6 @@ func TestAdapter_Copy(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -80,7 +76,6 @@ func TestAdapter_Copy(t *testing.T) {
 
 func TestAdapter_CreateDirectory(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -98,7 +93,6 @@ func TestAdapter_CreateDirectory(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -111,7 +105,6 @@ func TestAdapter_CreateDirectory(t *testing.T) {
 
 func TestAdapter_Delete(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -130,7 +123,6 @@ func TestAdapter_Delete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -148,7 +140,6 @@ func TestAdapter_Delete(t *testing.T) {
 
 func TestAdapter_DeleteDirectory(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -167,7 +158,6 @@ func TestAdapter_DeleteDirectory(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -185,7 +175,6 @@ func TestAdapter_DeleteDirectory(t *testing.T) {
 
 func TestAdapter_DiskName(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -199,7 +188,6 @@ func TestAdapter_DiskName(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -212,7 +200,6 @@ func TestAdapter_DiskName(t *testing.T) {
 
 func TestAdapter_Exist(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -231,7 +218,6 @@ func TestAdapter_Exist(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -249,7 +235,6 @@ func TestAdapter_Exist(t *testing.T) {
 
 func TestAdapter_MimeType(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -268,7 +253,6 @@ func TestAdapter_MimeType(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -286,7 +270,6 @@ func TestAdapter_MimeType(t *testing.T) {
 
 func TestAdapter_Move(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -306,7 +289,6 @@ func TestAdapter_Move(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -324,7 +306,6 @@ func TestAdapter_Move(t *testing.T) {
 
 func TestAdapter_Read(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -343,7 +324,6 @@ func TestAdapter_Read(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -361,7 +341,6 @@ func TestAdapter_Read(t *testing.T) {
 
 func TestAdapter_SetVisibility(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -381,7 +360,6 @@ func TestAdapter_SetVisibility(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -399,7 +377,6 @@ func TestAdapter_SetVisibility(t *testing.T) {
 
 func TestAdapter_Size(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -418,7 +395,6 @@ func TestAdapter_Size(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -436,7 +412,6 @@ func TestAdapter_Size(t *testing.T) {
 
 func TestAdapter_URL(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -455,7 +430,6 @@ func TestAdapter_URL(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -473,7 +447,6 @@ func TestAdapter_URL(t *testing.T) {
 
 func TestAdapter_Update(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -492,7 +465,6 @@ func TestAdapter_Update(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -505,7 +477,6 @@ func TestAdapter_Update(t *testing.T) {
 
 func TestAdapter_UpdateStream(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -524,7 +495,6 @@ func TestAdapter_UpdateStream(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -537,7 +507,6 @@ func TestAdapter_UpdateStream(t *testing.T) {
 
 func TestAdapter_Visibility(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -555,7 +524,6 @@ func TestAdapter_Visibility(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -568,7 +536,6 @@ func TestAdapter_Visibility(t *testing.T) {
 
 func TestAdapter_Write(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -587,7 +554,6 @@ func TestAdapter_Write(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -600,7 +566,6 @@ func TestAdapter_Write(t *testing.T) {
 
 func TestAdapter_WriteReader(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -619,7 +584,6 @@ func TestAdapter_WriteReader(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -632,7 +596,6 @@ func TestAdapter_WriteReader(t *testing.T) {
 
 func TestAdapter_WriteStream(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -651,7 +614,6 @@ func TestAdapter_WriteStream(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}
@@ -664,7 +626,6 @@ func TestAdapter_WriteStream(t *testing.T) {
 
 func TestAdapter_ensureDirectory(t *testing.T) {
 	type fields struct {
-		bucket string
 		Config *Config
 		lock   *sync.Mutex
 	}
@@ -682,7 +643,6 @@ func TestAdapter_ensureDirectory(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := &Adapter{
-				bucket: tt.fields.bucket,
 				Config: tt.fields.Config,
 				lock:   tt.fields.lock,
 			}

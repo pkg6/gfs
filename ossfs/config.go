@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	//https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints
 	CDN             string
 	Bucket          string
 	Endpoint        string
@@ -26,7 +27,7 @@ func (c *Config) URL(path string) (*url.URL, error) {
 	}
 	return gfs.PublicURLMake(bucketUrl.String(), path)
 }
-func (c *Config) GetBucket(bucket string) string {
+func (c *Config) UseBucket(bucket string) string {
 	if bucket != "" {
 		return bucket
 	}

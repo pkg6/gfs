@@ -13,7 +13,6 @@ import (
 )
 
 type Adapter struct {
-	bucket string
 	Config *Config
 	lock   *sync.Mutex
 }
@@ -29,9 +28,9 @@ func NewLocal(config *Config) *Adapter {
 }
 
 func (a *Adapter) Bucket(bucket string) gfs.IAdapter {
-	a.bucket = bucket
 	return a
 }
+
 func (a Adapter) DiskName() string {
 	return gfs.DiskNameLocal
 }

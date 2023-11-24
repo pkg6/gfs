@@ -26,8 +26,8 @@ var (
 func init() {
 	local = localfs.New(&localfs.Config{})
 	oss = ossfs.New(&ossfs.Config{
-		Bucket:          "test",
-		Endpoint:        "oss-cn-hangzhou.aliyuncs.com",
+		Bucket: "test",
+		//Endpoint:        "oss-cn-hangzhou.aliyuncs.com",
 		AccessKeyID:     "*******************",
 		AccessKeySecret: "**************",
 	})
@@ -49,7 +49,7 @@ func init() {
 		SecretKey: "SecretKey",
 	})
 	bos = bosfs.New(&bosfs.Config{
-		Endpoint: bosfs.BJEndpoint,
+		Endpoint: bosfs.DefaultEndpoint,
 		Ak:       "Ak",
 		Sk:       "Sk",
 		Bucket:   "test bucket",
@@ -57,43 +57,40 @@ func init() {
 }
 
 func main() {
-	adapters := gfs.New()
-	adapters.Extend(local)
+	gf := gfs.New()
+	gf.Extend(local)
 	var err error
-	err = adapters.WriteReader(root+"4.txt", strings.NewReader("test"))
-	fmt.Println(err)
-	err = adapters.Disk(gfs.DiskNameLocal).WriteReader(root+"5.txt", strings.NewReader("test"))
+	err = gf.WriteReader(root+"4.txt", strings.NewReader("test"))
+	adapter, err := gf.Adapter(gfs.DiskNameLocal)
+	err = adapter.WriteReader(root+"5.txt", strings.NewReader("test"))
 	fmt.Println(err)
 	//Write file
-	err = adapters.Write(root+"1.txt", []byte("test data"))
+	err = gf.Write(root+"1.txt", []byte("test data"))
 	fmt.Println(err)
 	//Write data from resource file
-	err = adapters.WriteStream(root+"2.txt", root+"/1.txt")
+	err = gf.WriteStream(root+"2.txt", root+"/1.txt")
 	fmt.Println(err)
 	//Update file
-	err = adapters.Update(root+"1.txt", []byte("test update data"))
+	err = gf.Update(root+"1.txt", []byte("test update data"))
 	fmt.Println(err)
 	//Update data from resource file
-	err = adapters.UpdateStream(root+"2.txt", root+"/1.txt")
+	err = gf.UpdateStream(root+"2.txt", root+"/1.txt")
 	fmt.Println(err)
-	exists, err := adapters.Exist(root + "2.txt")
-	if err != nil {
-		return
-	}
+	exists, err := gf.Exist(root + "2.txt")
 	fmt.Println(exists)
 	//Read file
-	read, err := adapters.Read(root + "2.txt")
+	read, err := gf.Read(root + "2.txt")
 	fmt.Println(read, err)
 	//Get file mime type
-	mimeType, err := adapters.MimeType(root + "2.txt")
+	mimeType, err := gf.MimeType(root + "2.txt")
 	fmt.Println(mimeType, err)
 	//Get file size
-	size, err := adapters.Size(root + "2.txt")
+	size, err := gf.Size(root + "2.txt")
 	fmt.Println(size, err)
 	//Move file
-	_, err = adapters.Move(root+"1.txt", root+"4.txt")
+	_, err = gf.Move(root+"1.txt", root+"4.txt")
 	fmt.Println(err)
 	//Copy file
-	_, err = adapters.Copy(root+"2.txt", root+"5.txt")
+	_, err = gf.Copy(root+"2.txt", root+"5.txt")
 	fmt.Println(err)
 }
