@@ -7,34 +7,7 @@ import (
 	"testing"
 )
 
-func TestConfig_GetBucket(t *testing.T) {
-	type fields struct {
-		CDN string
-	}
-	type args struct {
-		bucket string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			c := &Config{
-				CDN: tt.fields.CDN,
-			}
-			if got := c.UseBucket(tt.args.bucket); got != tt.want {
-				t.Errorf("GetBucket() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestConfig_New(t *testing.T) {
+func TestConfig_NewAdapter(t *testing.T) {
 	type fields struct {
 		CDN string
 	}
@@ -50,8 +23,8 @@ func TestConfig_New(t *testing.T) {
 			c := &Config{
 				CDN: tt.fields.CDN,
 			}
-			if got := c.New(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+			if got := c.NewAdapter(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewAdapter() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -85,6 +58,33 @@ func TestConfig_URL(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("URL() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConfig_UseBucket(t *testing.T) {
+	type fields struct {
+		CDN string
+	}
+	type args struct {
+		bucket string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+		want   string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Config{
+				CDN: tt.fields.CDN,
+			}
+			if got := c.UseBucket(tt.args.bucket); got != tt.want {
+				t.Errorf("UseBucket() = %v, want %v", got, tt.want)
 			}
 		})
 	}

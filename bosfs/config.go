@@ -15,7 +15,7 @@ type Config struct {
 	Bucket           string
 }
 
-func (c *Config) New() gfs.IAdapter {
+func (c *Config) NewAdapter() gfs.IAdapter {
 	return NewBOS(c)
 }
 

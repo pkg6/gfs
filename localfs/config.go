@@ -9,7 +9,7 @@ type Config struct {
 	CDN string
 }
 
-func (c *Config) New() gfs.IAdapter {
+func (c *Config) NewAdapter() gfs.IAdapter {
 	return NewLocal(c)
 }
 func (c *Config) URL(path string) (*url.URL, error) {
