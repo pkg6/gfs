@@ -5,66 +5,49 @@ import (
 	"github.com/zzqqw/gfs"
 	"github.com/zzqqw/gfs/bosfs"
 	"github.com/zzqqw/gfs/cloudstoragefs"
+	"github.com/zzqqw/gfs/config"
 	"github.com/zzqqw/gfs/cosfs"
 	"github.com/zzqqw/gfs/kodofs"
 	"github.com/zzqqw/gfs/localfs"
-	"github.com/zzqqw/gfs/ossfs"
 	"google.golang.org/api/option"
 	"strings"
 )
 
 var (
-	root   = "./.test_data/"
-	local  gfs.IAdapter
-	oss    gfs.IAdapter
-	google gfs.IAdapter
-	kodo   gfs.IAdapter
-	cos    gfs.IAdapter
-	bos    gfs.IAdapter
+	root = "./.test_data/"
+	c    config.Config
 )
 
 func init() {
-	local = localfs.New(&localfs.Config{})
-	oss = ossfs.New(&ossfs.Config{
-		Bucket: "test",
-		//Endpoint:        "oss-cn-hangzhou.aliyuncs.com",
-		AccessKeyID:     "*******************",
-		AccessKeySecret: "**************",
-	})
-	google = cloudstoragefs.New(&cloudstoragefs.Config{
+	c.LOCAL = &localfs.Config{}
+	c.CloudStorage = &cloudstoragefs.Config{
 		Bucket: "test bucket",
 		Option: []option.ClientOption{
 			option.WithCredentialsFile("CredentialsFile.json"),
 		},
-	})
-	kodo = kodofs.New(&kodofs.Config{
+	}
+	c.KODO = &kodofs.Config{
 		AccessKey: "AccessKey",
 		SecretKey: "SecretKey",
 		Bucket:    "test bucket",
-	})
-	//Create a bucket automatically generated URL
-	cos = cosfs.New(&cosfs.Config{
+	}
+	c.COS = &cosfs.Config{
 		BucketURL: "https://bucket-id.cos.ap-beijing.myqcloud.com",
 		SecretID:  "SecretID",
 		SecretKey: "SecretKey",
-	})
-	bos = bosfs.New(&bosfs.Config{
+	}
+	c.BOS = &bosfs.Config{
 		Endpoint: bosfs.DefaultEndpoint,
 		Ak:       "Ak",
 		Sk:       "Sk",
 		Bucket:   "test bucket",
-	})
+	}
 }
 
 func main() {
-	gf := gfs.New()
-	gf.Extend(local)
-	var err error
-	err = gf.WriteReader(root+"4.txt", strings.NewReader("test"))
-	adapter, err := gf.Adapter(gfs.DiskNameLocal)
-	err = adapter.WriteReader(root+"5.txt", strings.NewReader("test"))
+	gf, err := gfs.NewConfig(&c)
 	fmt.Println(err)
-	//Write file
+	err = gf.WriteReader(root+"4.txt", strings.NewReader("test"))
 	err = gf.Write(root+"1.txt", []byte("test data"))
 	fmt.Println(err)
 	//Write data from resource file

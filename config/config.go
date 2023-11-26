@@ -10,7 +10,7 @@ import (
 )
 
 type Config struct {
-	LOCAL        *localfs.Config        `gfs:"local"`
+	LOCAL        *localfs.Config        `gfs:"local,default"`
 	OSS          *ossfs.Config          `gfs:"oss"`
 	BOS          *bosfs.Config          `gfs:"bos"`
 	COS          *cosfs.Config          `gfs:"cos"`
