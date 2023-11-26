@@ -22,16 +22,13 @@ type FsManage struct {
 }
 
 func NewConfig(config any) (*FsManage, error) {
-	fs := &FsManage{l: &sync.Mutex{}}
+	fs := &FsManage{l: &sync.Mutex{}, diskAdapters: make(map[string]IAdapter)}
 	err := fs.ExtendConfigPtr(config)
 	return fs, err
 }
 
 func New() *FsManage {
-	return &FsManage{
-		diskAdapters: make(map[string]IAdapter),
-		l:            &sync.Mutex{},
-	}
+	return &FsManage{diskAdapters: make(map[string]IAdapter), l: &sync.Mutex{}}
 }
 
 func (f *FsManage) ExtendConfigPtr(config any) error {
