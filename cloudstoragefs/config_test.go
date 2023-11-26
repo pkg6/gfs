@@ -46,7 +46,7 @@ func TestConfig_BucketUrl(t *testing.T) {
 	}
 }
 
-func TestConfig_New(t *testing.T) {
+func TestConfig_NewAdapter(t *testing.T) {
 	type fields struct {
 		CDN             string
 		Bucket          string
@@ -70,8 +70,8 @@ func TestConfig_New(t *testing.T) {
 				CredentialsFile: tt.fields.CredentialsFile,
 				Option:          tt.fields.Option,
 			}
-			if got := c.New(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+			if got := c.NewAdapter(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewAdapter() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -18,7 +18,7 @@ type Adapter struct {
 }
 
 func New(config gfs.IAdapterConfig) gfs.IAdapter {
-	return config.New()
+	return config.NewAdapter()
 }
 
 func NewLocal(config *Config) *Adapter {

@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestConfig_New(t *testing.T) {
+func TestConfig_NewAdapter(t *testing.T) {
 	type fields struct {
 		CDN             string
 		Bucket          string
@@ -34,8 +34,8 @@ func TestConfig_New(t *testing.T) {
 				AccessKeySecret: tt.fields.AccessKeySecret,
 				OssConfig:       tt.fields.OssConfig,
 			}
-			if got := c.New(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+			if got := c.NewAdapter(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewAdapter() = %v, want %v", got, tt.want)
 			}
 		})
 	}

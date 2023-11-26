@@ -21,7 +21,7 @@ type Adapter struct {
 }
 
 func New(config gfs.IAdapterConfig) gfs.IAdapter {
-	return config.New()
+	return config.NewAdapter()
 }
 
 func NewKoDo(config *Config) *Adapter {

@@ -4,7 +4,14 @@ import (
 	"fmt"
 	"io"
 	"net/url"
+	"reflect"
+	"strings"
 	"sync"
+)
+
+var (
+	ConfigPtrTag                 = "gfs"
+	ConfigPtrSplitTagDefaultDisk = "default"
 )
 
 type FsManage struct {
@@ -14,20 +21,44 @@ type FsManage struct {
 	l            *sync.Mutex
 }
 
-func NewConfig(config IConfig) *FsManage {
-	fs := &FsManage{disk: config.Disk(), l: &sync.Mutex{}}
-	adapters := config.Adapters()
-	for s, adapter := range adapters {
-		fs.Extend(adapter, s)
-	}
-	return fs
+func NewConfig(config any) (*FsManage, error) {
+	fs := &FsManage{l: &sync.Mutex{}, diskAdapters: make(map[string]IAdapter)}
+	err := fs.ExtendConfigPtr(config)
+	return fs, err
 }
 
 func New() *FsManage {
-	return &FsManage{
-		diskAdapters: make(map[string]IAdapter),
-		l:            &sync.Mutex{},
+	return &FsManage{diskAdapters: make(map[string]IAdapter), l: &sync.Mutex{}}
+}
+
+func (f *FsManage) ExtendConfigPtr(config any) error {
+	v := reflect.ValueOf(config)
+	t := reflect.TypeOf(config)
+	if t.Kind() == reflect.Ptr {
+		for i := 0; i < v.Elem().NumField(); i++ {
+			e := v.Elem().Field(i)
+			if !e.IsZero() {
+				if fsConfig, ok := e.Interface().(IAdapterConfig); ok {
+					var diskName string
+					gfsName := t.Elem().Field(i).Tag.Get(ConfigPtrTag)
+					if gfsName == "" {
+						diskName = t.Elem().Field(i).Name
+					} else {
+						split := strings.Split(gfsName, ",")
+						diskName = split[0]
+						if len(split) > 2 && split[1] == ConfigPtrSplitTagDefaultDisk {
+							if f.disk == "" {
+								f.disk = diskName
+							}
+						}
+					}
+					f.Extend(fsConfig.NewAdapter(), diskName)
+				}
+			}
+		}
+		return nil
 	}
+	return fmt.Errorf("the data type is incorrect %v", config)
 }
 
 // Extend 扩展
@@ -48,8 +79,8 @@ func (f *FsManage) Extend(adapter IAdapter, names ...string) *FsManage {
 	return f
 }
 
-// DiskGet 获取注册所有的驱动
-func (f *FsManage) DiskGet() []string {
+// Disks 获取注册所有的驱动
+func (f *FsManage) Disks() []string {
 	return f.disks
 }
 
@@ -58,15 +89,19 @@ func (f *FsManage) DiskExist(disk string) bool {
 	_, ok := f.diskAdapters[disk]
 	return ok
 }
+func (f *FsManage) Disk(disk string) string {
+	if disk != "" {
+		f.disk = disk
+	}
+	if f.disk == "" {
+		f.disk = f.disks[0]
+	}
+	return f.disk
+}
 
 // Adapter 根据驱动名称找到适配器
 func (f *FsManage) Adapter(disk string) (IAdapter, error) {
-	if disk != "" {
-		f.disk = disk
-	} else {
-		f.disk = f.disks[0]
-	}
-	if adapter, ok := f.diskAdapters[f.disk]; ok {
+	if adapter, ok := f.diskAdapters[f.Disk(disk)]; ok {
 		return adapter, nil
 	}
 	return nil, fmt.Errorf("unable to find %s disk", f.disk)
