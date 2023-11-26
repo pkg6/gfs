@@ -1,0 +1,23 @@
+LOCAL:
+  Root: "./test"
+OSS:
+  Bucket: "test"
+  Endpoint: "oss-cn-hangzhou.aliyuncs.com"
+  AccessKeyID: "AccessKeyID"
+  AccessKeySecret: "AccessKeySecret"
+BOS:
+  Ak: "Ak"
+  Sk: "Sk"
+  Endpoint: "https://bj.bcebos.com"
+  Bucket: "test"
+CloudStorage:
+  Bucket: "test"
+  CredentialsFile: "credentials_file.json"
+COS:
+  BucketURL: "https://bucket-id.cos.ap-beijing.myqcloud.com"
+  SecretID: "SecretID"
+  SecretKey: "SecretKey"
+KODO:
+  AccessKey: "AccessKey"
+  SecretKey: "SecretKey"
+  Bucket: "test"

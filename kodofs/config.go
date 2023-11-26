@@ -15,7 +15,7 @@ type Config struct {
 	Config *storage.Config
 }
 
-func (c *Config) New() gfs.IAdapter {
+func (c *Config) NewAdapter() gfs.IAdapter {
 	return NewKoDo(c)
 }
 

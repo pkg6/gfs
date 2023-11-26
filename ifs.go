@@ -81,14 +81,9 @@ type IAdapter interface {
 }
 
 type IAdapterConfig interface {
-	New() IAdapter
+	NewAdapter() IAdapter
 	URL(path string) (*url.URL, error)
 	UseBucket(bucket string) string
-}
-
-type IConfig interface {
-	Disk() string
-	Adapters() map[string]IAdapter
 }
 
 func BucketURLMake(cdn, endpoint, bucket string) (*url.URL, error) {

@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestConfig_New(t *testing.T) {
+func TestConfig_NewAdapter(t *testing.T) {
 	type fields struct {
 		CDN              string
 		Ak               string
@@ -33,8 +33,8 @@ func TestConfig_New(t *testing.T) {
 				RedirectDisabled: tt.fields.RedirectDisabled,
 				Bucket:           tt.fields.Bucket,
 			}
-			if got := c.New(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+			if got := c.NewAdapter(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewAdapter() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -20,7 +20,7 @@ type Config struct {
 	Option          []option.ClientOption
 }
 
-func (c *Config) New() gfs.IAdapter {
+func (c *Config) NewAdapter() gfs.IAdapter {
 	return NewGCS(c)
 }
 
