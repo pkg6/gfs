@@ -203,11 +203,11 @@ func (a *Adapter) Size(path string) (int64, error) {
 }
 
 func (a *Adapter) Update(path string, contents []byte) error {
-	return a.Write(path, contents)
+	return fmt.Errorf("update implement me")
 }
 
 func (a *Adapter) UpdateStream(path, resource string) error {
-	return a.WriteStream(path, resource)
+	return fmt.Errorf("update implement me")
 }
 
 func (a *Adapter) MimeType(path string) (string, error) {
