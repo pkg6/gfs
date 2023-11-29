@@ -7,9 +7,9 @@ import (
 )
 
 type Config struct {
+	CDN    string
+	Bucket string
 	//https://help.aliyun.com/zh/oss/user-guide/regions-and-endpoints
-	CDN             string
-	Bucket          string
 	Endpoint        string
 	AccessKeyID     string
 	AccessKeySecret string
