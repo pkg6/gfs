@@ -1,6 +1,7 @@
 package gfs_test
 
 import (
+	"fmt"
 	"github.com/zzqqw/gfs"
 	"github.com/zzqqw/gfs/bosfs"
 	"github.com/zzqqw/gfs/cloudstoragefs"
@@ -8,6 +9,7 @@ import (
 	"github.com/zzqqw/gfs/cosfs"
 	"github.com/zzqqw/gfs/kodofs"
 	"github.com/zzqqw/gfs/localfs"
+	"github.com/zzqqw/gfs/ossfs"
 	"google.golang.org/api/option"
 	"testing"
 )
@@ -20,6 +22,11 @@ func TestNewConfig(t *testing.T) {
 			Option: []option.ClientOption{
 				option.WithCredentialsFile("CredentialsFile.json"),
 			},
+		},
+		OSS: &ossfs.Config{
+			Endpoint:        "oss-cn-hangzhou.aliyuncs.com",
+			AccessKeyID:     "****************",
+			AccessKeySecret: "****************",
 		},
 		KODO: &kodofs.Config{
 			AccessKey: "AccessKey",
@@ -42,16 +49,22 @@ func TestNewConfig(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if fs.Disk("") != "local" {
+	loc, err := fs.Adapter("")
+	if err != nil {
 		t.Fatal(err)
 	}
-	if fs.Disk("oss") != "oss" {
+	if _, ok := loc.(*localfs.Adapter); !ok {
+		t.Fatal("default local choose err")
+	}
+	oss, err := fs.Adapter("oss")
+	if err != nil {
 		t.Fatal(err)
 	}
-	if fs.Disk("oss2") == "" {
-		t.Fatal(err)
+	if _, ok := oss.(*ossfs.Adapter); !ok {
+		t.Fatal("oss choose err")
 	}
-	if fs.DiskExist("oss2") == true {
+	_, err = fs.Adapter("oss2")
+	if err == fmt.Errorf("unable to find %s disk", "oss2") {
 		t.Fatal(err)
 	}
 }

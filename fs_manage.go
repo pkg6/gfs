@@ -89,26 +89,30 @@ func (f *FsManage) DiskExist(disk string) bool {
 	_, ok := f.diskAdapters[disk]
 	return ok
 }
-func (f *FsManage) Disk(disk string) string {
+
+//选择
+func (f *FsManage) diskChoose(disk string) string {
 	if disk != "" {
 		f.disk = disk
 	}
 	if f.disk == "" {
-		f.disk = f.disks[0]
+		if len(f.disks) > 0 {
+			f.disk = f.disks[0]
+		}
 	}
 	return f.disk
 }
 
 // Adapter 根据驱动名称找到适配器
 func (f *FsManage) Adapter(disk string) (IAdapter, error) {
-	if adapter, ok := f.diskAdapters[f.Disk(disk)]; ok {
+	if adapter, ok := f.diskAdapters[f.diskChoose(disk)]; ok {
 		return adapter, nil
 	}
 	return nil, fmt.Errorf("unable to find %s disk", f.disk)
 }
 
 func (f *FsManage) URL(path string) (*url.URL, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +120,7 @@ func (f *FsManage) URL(path string) (*url.URL, error) {
 }
 
 func (f *FsManage) Exist(path string) (bool, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return false, err
 	}
@@ -124,7 +128,7 @@ func (f *FsManage) Exist(path string) (bool, error) {
 }
 
 func (f *FsManage) WriteReader(path string, reader io.Reader) error {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return err
 	}
@@ -132,7 +136,7 @@ func (f *FsManage) WriteReader(path string, reader io.Reader) error {
 }
 
 func (f *FsManage) Write(path string, contents []byte) error {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return err
 	}
@@ -140,7 +144,7 @@ func (f *FsManage) Write(path string, contents []byte) error {
 }
 
 func (f *FsManage) WriteStream(path, resource string) error {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return err
 	}
@@ -148,7 +152,7 @@ func (f *FsManage) WriteStream(path, resource string) error {
 }
 
 func (f *FsManage) Update(path string, contents []byte) error {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return err
 	}
@@ -156,7 +160,7 @@ func (f *FsManage) Update(path string, contents []byte) error {
 }
 
 func (f *FsManage) UpdateStream(path, resource string) error {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return err
 	}
@@ -164,7 +168,7 @@ func (f *FsManage) UpdateStream(path, resource string) error {
 }
 
 func (f *FsManage) Read(path string) ([]byte, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +176,7 @@ func (f *FsManage) Read(path string) ([]byte, error) {
 }
 
 func (f *FsManage) Delete(path string) (int64, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return 0, err
 	}
@@ -180,7 +184,7 @@ func (f *FsManage) Delete(path string) (int64, error) {
 }
 
 func (f *FsManage) MimeType(path string) (string, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return "", err
 	}
@@ -188,7 +192,7 @@ func (f *FsManage) MimeType(path string) (string, error) {
 }
 
 func (f *FsManage) Size(path string) (int64, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return 0, err
 	}
@@ -196,7 +200,7 @@ func (f *FsManage) Size(path string) (int64, error) {
 }
 
 func (f *FsManage) Move(source, destination string) (bool, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return false, err
 	}
@@ -204,7 +208,7 @@ func (f *FsManage) Move(source, destination string) (bool, error) {
 }
 
 func (f *FsManage) Copy(source, destination string) (bool, error) {
-	adapter, err := f.Adapter("")
+	adapter, err := f.Adapter(f.disk)
 	if err != nil {
 		return false, err
 	}
