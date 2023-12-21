@@ -217,10 +217,11 @@ func (a *Adapter) DeleteDirectory(dirname string) (int64, error) {
 	defer a.lock.Unlock()
 	var err error
 	var count int64
-	if err = filepath.Walk(dirname, func(path string, info os.FileInfo, err error) error {
+	err = filepath.Walk(dirname, func(path string, info os.FileInfo, err error) error {
 		count++
 		return nil
-	}); err != nil {
+	})
+	if err != nil {
 		return 0, err
 	}
 	if err = os.RemoveAll(dirname); err != nil {

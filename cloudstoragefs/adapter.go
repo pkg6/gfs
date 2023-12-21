@@ -39,8 +39,14 @@ func New(config gfs.IAdapterConfig) gfs.IAdapter {
 	return config.NewAdapter()
 }
 func NewGCS(config *Config) *Adapter {
+	var credentials bool
 	if config.CredentialsFile != "" {
 		config.Option = append(config.Option, option.WithCredentialsFile(config.CredentialsFile))
+		credentials = true
+	}
+	if !credentials {
+		config.Option = append(config.Option, option.WithCredentialsJSON([]byte(config.CredentialsJSON)))
+		credentials = true
 	}
 	a := &Adapter{Config: config}
 	if a.Config.WithTimeout == 0 {
