@@ -110,10 +110,11 @@ func (a *Adapter) Delete(path string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	if err = client.DeleteObject(a.Config.UseBucket(a.bucket), path); err == nil {
-		return 1, nil
+	err = client.DeleteObject(a.Config.UseBucket(a.bucket), path)
+	if err != nil {
+		return 0, err
 	}
-	return 0, err
+	return 1, nil
 }
 
 func (a *Adapter) Size(path string) (int64, error) {
@@ -153,7 +154,8 @@ func (a *Adapter) CopyObject(source, destination string, deleteSource bool) (boo
 	if err != nil {
 		return false, err
 	}
-	if _, err = client.BasicCopyObject(a.Config.UseBucket(a.bucket), destination, a.Config.UseBucket(a.bucket), source); err == nil {
+	_, err = client.BasicCopyObject(a.Config.UseBucket(a.bucket), destination, a.Config.UseBucket(a.bucket), source)
+	if err == nil {
 		if deleteSource {
 			defer func() {
 				_ = client.DeleteObject(a.Config.UseBucket(a.bucket), source)
