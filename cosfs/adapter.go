@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/tencentyun/cos-go-sdk-v5"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"io"
 	"net/http"
 	"net/url"

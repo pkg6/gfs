@@ -1,7 +1,7 @@
 package cloudstoragefs
 
 import (
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"google.golang.org/api/option"
 	"net/url"
 	"reflect"

@@ -1,4 +1,4 @@
-module github.com/zzqqw/gfs
+module github.com/pkg6/gfs
 
 go 1.18
 

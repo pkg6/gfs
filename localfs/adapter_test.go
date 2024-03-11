@@ -1,7 +1,7 @@
 package localfs
 
 import (
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"io"
 	"net/url"
 	"reflect"

@@ -2,7 +2,7 @@ package kodofs
 
 import (
 	"github.com/qiniu/go-sdk/v7/storage"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"net/url"
 )
 

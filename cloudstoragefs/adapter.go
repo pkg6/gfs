@@ -5,7 +5,7 @@ import (
 	"cloud.google.com/go/storage"
 	"context"
 	"fmt"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"google.golang.org/api/option"
 	"io"
 	"net/url"
