@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/qiniu/go-sdk/v7/storage"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"io"
 	"net/http"
 	"net/url"

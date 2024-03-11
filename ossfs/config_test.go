@@ -2,7 +2,7 @@ package ossfs
 
 import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"net/url"
 	"reflect"
 	"testing"

@@ -2,14 +2,14 @@ package gfs_test
 
 import (
 	"fmt"
-	"github.com/zzqqw/gfs"
-	"github.com/zzqqw/gfs/bosfs"
-	"github.com/zzqqw/gfs/cloudstoragefs"
-	"github.com/zzqqw/gfs/config"
-	"github.com/zzqqw/gfs/cosfs"
-	"github.com/zzqqw/gfs/kodofs"
-	"github.com/zzqqw/gfs/localfs"
-	"github.com/zzqqw/gfs/ossfs"
+	"github.com/pkg6/gfs"
+	"github.com/pkg6/gfs/bosfs"
+	"github.com/pkg6/gfs/cloudstoragefs"
+	"github.com/pkg6/gfs/config"
+	"github.com/pkg6/gfs/cosfs"
+	"github.com/pkg6/gfs/kodofs"
+	"github.com/pkg6/gfs/localfs"
+	"github.com/pkg6/gfs/ossfs"
 	"google.golang.org/api/option"
 	"testing"
 )

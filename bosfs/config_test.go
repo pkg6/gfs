@@ -1,7 +1,7 @@
 package bosfs
 
 import (
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"net/url"
 	"reflect"
 	"testing"

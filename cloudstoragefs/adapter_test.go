@@ -3,7 +3,7 @@ package cloudstoragefs
 import (
 	"cloud.google.com/go/storage"
 	"context"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"io"
 	"net/url"
 	"reflect"

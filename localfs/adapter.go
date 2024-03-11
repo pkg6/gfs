@@ -2,7 +2,7 @@ package localfs
 
 import (
 	"fmt"
-	"github.com/zzqqw/gfs"
+	"github.com/pkg6/gfs"
 	"io"
 	"net/http"
 	"net/url"
