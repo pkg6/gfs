@@ -18,7 +18,7 @@ go get github.com/pkg6/gfs
 - **[ALiYun OSS](https://help.aliyun.com/product/31815.html)**
 - **[Google Cloud Storage](https://cloud.google.com/storage/docs/introduction?hl=zh-CN)**
 - **[QiNiu KoDo](https://www.qiniu.com/products/kodo)**
-- **[Tencent COS](https://cloud.tencent.com/product/cos)**
+- **[Tencent COS](https://curl.qcloud.com/CupX5XVS)**
 - **[BaiDu BOS](https://cloud.baidu.com/product/bos.html)**
 
 ## adapter Interface
