@@ -6,7 +6,7 @@ import (
 )
 
 type Config struct {
-	CDN string
+	CDN string `json:"cdn" xml:"CDN" yaml:"CDN"`
 }
 
 func (c *Config) NewAdapter() gfs.IAdapter {

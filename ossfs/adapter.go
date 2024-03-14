@@ -40,8 +40,8 @@ func (a *Adapter) DiskName() string {
 
 func (a *Adapter) Client() (*oss.Client, error) {
 	return oss.New(a.Config.Endpoint, a.Config.AccessKeyID, a.Config.AccessKeySecret, func(client *oss.Client) {
-		if a.Config.OssConfig != nil {
-			client.Config = a.Config.OssConfig
+		if a.Config.Config != nil {
+			client.Config = a.Config.Config
 		}
 	})
 }

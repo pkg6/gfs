@@ -6,13 +6,13 @@ import (
 )
 
 type Config struct {
-	CDN string
-	Ak  string
-	Sk  string
+	CDN string `json:"cdn" xml:"CDN" yaml:"CDN"`
+	Ak  string `json:"ak" xml:"Ak" yaml:"Ak"`
+	Sk  string `json:"sk" xml:"Sk" yaml:"Sk"`
 	//https://cloud.baidu.com/doc/BOS/s/Ojwvyrpgd
-	Endpoint         string
-	RedirectDisabled bool
-	Bucket           string
+	Endpoint         string `json:"endpoint" xml:"Endpoint" yaml:"Endpoint"`
+	RedirectDisabled bool   `json:"redirect_disabled" xml:"RedirectDisabled" yaml:"RedirectDisabled"`
+	Bucket           string `json:"bucket" xml:"Bucket" yaml:"Bucket"`
 }
 
 func (c *Config) NewAdapter() gfs.IAdapter {

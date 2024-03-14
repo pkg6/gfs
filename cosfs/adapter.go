@@ -3,8 +3,8 @@ package cosfs
 import (
 	"context"
 	"fmt"
-	"github.com/tencentyun/cos-go-sdk-v5"
 	"github.com/pkg6/gfs"
+	"github.com/tencentyun/cos-go-sdk-v5"
 	"io"
 	"net/http"
 	"net/url"
@@ -33,13 +33,18 @@ func (a *Adapter) Client() (*cos.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return cos.NewClient(&cos.BaseURL{BucketURL: bucketURL}, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  a.Config.SecretID,
-			SecretKey: a.Config.SecretKey,
+	return cos.NewClient(
+		&cos.BaseURL{
+			BucketURL: bucketURL,
 		},
-	}), nil
+		&http.Client{
+			Transport: &cos.AuthorizationTransport{
+				SecretID:  a.Config.SecretID,
+				SecretKey: a.Config.SecretKey,
+			},
+		}), nil
 }
+
 func (a *Adapter) CopyObject(srcObjectKey, destObjectKey string, isDelete bool) (bool, error) {
 	client, err := a.Client()
 	if err != nil {
