@@ -1,21 +1,53 @@
-package ossfs
+package cosfs
 
 import (
-	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/pkg6/gfs"
 	"net/url"
 	"reflect"
 	"testing"
 )
 
+func TestConfig_BucketUrl(t *testing.T) {
+	type fields struct {
+		CDN       string
+		BucketURL string
+		SecretID  string
+		SecretKey string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    *url.URL
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Config{
+				CDN:       tt.fields.CDN,
+				BucketURL: tt.fields.BucketURL,
+				SecretID:  tt.fields.SecretID,
+				SecretKey: tt.fields.SecretKey,
+			}
+			got, err := c.BucketUrl()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("BucketUrl() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("BucketUrl() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestConfig_NewAdapter(t *testing.T) {
 	type fields struct {
-		CDN             string
-		Bucket          string
-		Endpoint        string
-		AccessKeyID     string
-		AccessKeySecret string
-		OssConfig       *oss.Config
+		CDN       string
+		BucketURL string
+		SecretID  string
+		SecretKey string
 	}
 	tests := []struct {
 		name   string
@@ -27,12 +59,10 @@ func TestConfig_NewAdapter(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Config{
-				CDN:             tt.fields.CDN,
-				Bucket:          tt.fields.Bucket,
-				Endpoint:        tt.fields.Endpoint,
-				AccessKeyID:     tt.fields.AccessKeyID,
-				AccessKeySecret: tt.fields.AccessKeySecret,
-				Config:          tt.fields.OssConfig,
+				CDN:       tt.fields.CDN,
+				BucketURL: tt.fields.BucketURL,
+				SecretID:  tt.fields.SecretID,
+				SecretKey: tt.fields.SecretKey,
 			}
 			if got := c.NewAdapter(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewAdapter() = %v, want %v", got, tt.want)
@@ -43,12 +73,10 @@ func TestConfig_NewAdapter(t *testing.T) {
 
 func TestConfig_URL(t *testing.T) {
 	type fields struct {
-		CDN             string
-		Bucket          string
-		Endpoint        string
-		AccessKeyID     string
-		AccessKeySecret string
-		OssConfig       *oss.Config
+		CDN       string
+		BucketURL string
+		SecretID  string
+		SecretKey string
 	}
 	type args struct {
 		path string
@@ -65,12 +93,10 @@ func TestConfig_URL(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Config{
-				CDN:             tt.fields.CDN,
-				Bucket:          tt.fields.Bucket,
-				Endpoint:        tt.fields.Endpoint,
-				AccessKeyID:     tt.fields.AccessKeyID,
-				AccessKeySecret: tt.fields.AccessKeySecret,
-				Config:          tt.fields.OssConfig,
+				CDN:       tt.fields.CDN,
+				BucketURL: tt.fields.BucketURL,
+				SecretID:  tt.fields.SecretID,
+				SecretKey: tt.fields.SecretKey,
 			}
 			got, err := c.URL(tt.args.path)
 			if (err != nil) != tt.wantErr {
@@ -86,12 +112,10 @@ func TestConfig_URL(t *testing.T) {
 
 func TestConfig_UseBucket(t *testing.T) {
 	type fields struct {
-		CDN             string
-		Bucket          string
-		Endpoint        string
-		AccessKeyID     string
-		AccessKeySecret string
-		OssConfig       *oss.Config
+		CDN       string
+		BucketURL string
+		SecretID  string
+		SecretKey string
 	}
 	type args struct {
 		bucket string
@@ -107,12 +131,10 @@ func TestConfig_UseBucket(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Config{
-				CDN:             tt.fields.CDN,
-				Bucket:          tt.fields.Bucket,
-				Endpoint:        tt.fields.Endpoint,
-				AccessKeyID:     tt.fields.AccessKeyID,
-				AccessKeySecret: tt.fields.AccessKeySecret,
-				Config:          tt.fields.OssConfig,
+				CDN:       tt.fields.CDN,
+				BucketURL: tt.fields.BucketURL,
+				SecretID:  tt.fields.SecretID,
+				SecretKey: tt.fields.SecretKey,
 			}
 			if got := c.UseBucket(tt.args.bucket); got != tt.want {
 				t.Errorf("UseBucket() = %v, want %v", got, tt.want)

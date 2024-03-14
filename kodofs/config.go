@@ -1,18 +1,18 @@
 package kodofs
 
 import (
-	"github.com/qiniu/go-sdk/v7/storage"
 	"github.com/pkg6/gfs"
+	"github.com/qiniu/go-sdk/v7/storage"
 	"net/url"
 )
 
 type Config struct {
-	CDN                  string
-	AccessKey, SecretKey string
-	Bucket               string
-
-	Policy *storage.PutPolicy
-	Config *storage.Config
+	CDN       string             `json:"cdn" xml:"CDN" yaml:"CDN"`
+	AccessKey string             `json:"access_key" xml:"AccessKey" yaml:"AccessKey"`
+	SecretKey string             `json:"secret_key" xml:"SecretKey" yaml:"SecretKey"`
+	Bucket    string             `json:"bucket" xml:"Bucket" yaml:"Bucket"`
+	Policy    *storage.PutPolicy `json:"policy" xml:"Policy" yaml:"Policy"`
+	Config    *storage.Config    `json:"config" xml:"Config" yaml:"Config"`
 }
 
 func (c *Config) NewAdapter() gfs.IAdapter {
